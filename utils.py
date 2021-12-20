@@ -5,8 +5,10 @@ def get_last_word(text: str) -> (str, int):
     """
     Gets the last word of any given sentence.
     :param text: text to look at
-    :return: A boolean k where k[0] is the last word, and k[1] is the index of the first character
-    of the word
+
+    :return: A boolean k where:
+    k[0] is the last word,
+    k[1] is the index of the first character of the word
     """
     text = text.split(" ")
     total_travelled = 0

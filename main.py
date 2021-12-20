@@ -14,8 +14,12 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         if message.author == self.user:
             return
-        print(f'Message from {message.author}: {message.content}')
-        await message.channel.send(f'Message from {message.author}: {message.content}')
+        is_message_valid = valid_message(message.content)
+        if not is_message_valid[0]:
+            return
+
+        # print(f'Message from {message.author}: {message.content}')
+        await message.channel.send("or is it?")
 
 
 if __name__ == '__main__':
