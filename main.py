@@ -7,6 +7,8 @@ to add the bot: https://discord.com/api/oauth2/authorize?client_id=9225759335153
 
 import discord
 from utils import valid_message
+import asyncio
+
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as {0}!'.format(self.user))
@@ -19,7 +21,10 @@ class MyClient(discord.Client):
             return
 
         # print(f'Message from {message.author}: {message.content}')
-        await message.channel.send("or is it?")
+        text_to_send = "...or is it?"
+        sent_message = await message.reply(text_to_send)
+        await asyncio.sleep(1)
+        await sent_message.edit(content = text_to_send + f"\nperhaps the world isn't {is_message_valid[1]}")
 
 
 if __name__ == '__main__':
