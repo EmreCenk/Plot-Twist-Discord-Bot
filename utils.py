@@ -27,10 +27,13 @@ def valid_message(text: str) -> Tuple[bool, str]:
         return (False, "")
 
     last_word = get_last_word(text)
-    text = text[: last_word[1] - 1]
+    text = text[: last_word[1] - 1] #removing the last word
+    # since we removed the first word, the new last word is actually the second from last word
+    second_last_word = get_last_word(text)
+    if second_last_word[0] != "is":
+        return (False, "")
 
-
-    return (True, "")
+    return (True, last_word[0])
 if __name__ == '__main__':
     ex = "Everything is great."
     print(
