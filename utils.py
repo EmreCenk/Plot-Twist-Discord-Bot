@@ -18,7 +18,8 @@ def get_last_word(text: str) -> (str, int):
 def valid_message(text: str) -> Tuple[bool, str]:
     """
     :param text: a message sent in a server
-    :return: a tuple k where k[0] is a boolean to determine if the message is valid and
+    :return: a tuple k where:
+    k[0] is a boolean to determine if the message is valid
     k[1] is the noun of the word. If k[0] is false, then k[1] is an empty string.
     """
     text = text.lower().replace(".", " ")

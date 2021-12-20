@@ -6,7 +6,7 @@ to add the bot: https://discord.com/api/oauth2/authorize?client_id=9225759335153
 """
 
 import discord
-
+from utils import valid_message
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as {0}!'.format(self.user))
