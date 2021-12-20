@@ -12,7 +12,9 @@ class MyClient(discord.Client):
         print('Logged on as {0}!'.format(self.user))
 
     async def on_message(self, message):
+        if message.author == self.user: return
         print(f'Message from {message.author}: {message.content}')
+        await message.channel.send(f'Message from {message.author}: {message.content}')
 
 
 if __name__ == '__main__':
