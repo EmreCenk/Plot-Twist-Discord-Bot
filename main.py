@@ -21,10 +21,10 @@ class MyClient(discord.Client):
             return
 
         # print(f'Message from {message.author}: {message.content}')
-        text_to_send = "...or is it?"
+        text_to_send = f"...or is {is_message_valid[2]}?"
         sent_message = await message.reply(text_to_send)
         await asyncio.sleep(1)
-        await sent_message.edit(content = text_to_send + f"\nperhaps the world isn't {is_message_valid[1]}")
+        await sent_message.edit(content = text_to_send + f"\nperhaps {is_message_valid[2]} isn't {is_message_valid[1]}")
 
 
 if __name__ == '__main__':
