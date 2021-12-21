@@ -35,7 +35,7 @@ class MyClient(discord.Client):
         await asyncio.sleep(sleeptime)
         await sent_message.edit(content = text_to_send)
 
-        text_to_send += "\ndun dun duuun"
+        text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
         await asyncio.sleep(sleeptime)
         await sent_message.edit(content = text_to_send)
 
