@@ -41,8 +41,11 @@ class MyClient(discord.Client):
 
 
 if __name__ == '__main__':
-    from dotenv import load_dotenv
-    load_dotenv()
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        pass #this is fine. it just means we're in production instead of testing.
     from os import environ
     token = environ["DISCORD_TOKEN"]
 
