@@ -23,10 +23,21 @@ class MyClient(discord.Client):
             return
 
         # print(f'Message from {message.author}: {message.content}')
-        text_to_send = f"...or is {response.adjective}?"
+        text_to_send = f"...{response.is_alternative} {response.noun} {response.adjective}?"
         sent_message = await message.reply(text_to_send)
-        await asyncio.sleep(2)
-        await sent_message.edit(content = text_to_send + f"{response.is_alternative} {response.noun} {response.adjective}?")
+
+        sleeptime = 1.4
+        text_to_send +=  f"\nThe truth was right in front of you the whole time..."
+        await asyncio.sleep(sleeptime)
+        await sent_message.edit(content = text_to_send)
+
+        text_to_send += f"\n{response.noun} {response.is_alternative} not {response.adjective}"
+        await asyncio.sleep(sleeptime)
+        await sent_message.edit(content = text_to_send)
+
+        text_to_send += "\ndun dun duuun"
+        await asyncio.sleep(sleeptime)
+        await sent_message.edit(content = text_to_send)
 
 
 if __name__ == '__main__':
