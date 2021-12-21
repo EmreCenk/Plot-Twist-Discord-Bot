@@ -45,5 +45,6 @@ if __name__ == '__main__':
     load_dotenv()
     from os import environ
     token = environ["DISCORD_TOKEN"]
+
     client = MyClient()
     client.run(token)
