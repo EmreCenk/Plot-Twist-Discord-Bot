@@ -6,7 +6,7 @@ to add the bot: https://discord.com/api/oauth2/authorize?client_id=9225759335153
 """
 
 import discord
-from utils import valid_message
+from utils import message_checker
 import asyncio
 
 class MyClient(discord.Client):
@@ -16,15 +16,17 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         if message.author == self.user:
             return
-        is_message_valid = valid_message(message.content)
-        if not is_message_valid[0]:
+
+        checker = message_checker()
+        response = checker.valid_message(message.content)
+        if not response.validity:
             return
 
         # print(f'Message from {message.author}: {message.content}')
-        text_to_send = f"...or is {is_message_valid[2]}?"
+        text_to_send = f"...or is {response.adjective}?"
         sent_message = await message.reply(text_to_send)
-        await asyncio.sleep(1)
-        await sent_message.edit(content = text_to_send + f"\nperhaps {is_message_valid[2]} isn't {is_message_valid[1]}")
+        await asyncio.sleep(2)
+        await sent_message.edit(content = text_to_send + f"{response.is_alternative} {response.noun} {response.adjective}?")
 
 
 if __name__ == '__main__':
