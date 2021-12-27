@@ -18,20 +18,24 @@ class MyClient(discord.Client):
             return
 
         checker = message_checker()
-        response = checker.valid_message(message.content)
-        if not response.validity:
-            return
+        some_response = checker.valid_message(message.content)
+        if some_response.validity == False: return
+
+        #replacing apostorphees:
+        some_response.subject = some_response.subject.replace("'m", "am").replace("'re", "are").replace("'s", "is")
+        some_response.is_alternative = some_response.is_alternative.replace("'m", "am").replace("'re", "are").replace("'s", "is")
+        some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
 
         # print(f'Message from {message.author}: {message.content}')
-        text_to_send = f"...{response.is_alternative} {response.subject} {response.adjective}?"
+        text_to_send = f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
         sent_message = await message.reply(text_to_send)
 
         sleeptime = 1.4
-        text_to_send +=  f"\nThe truth was right in front of you the whole time..."
+        text_to_send += f"\nThe truth was right in front of you the whole time..."
         await asyncio.sleep(sleeptime)
         await sent_message.edit(content = text_to_send)
 
-        text_to_send += f"\n{response.subject} {response.is_alternative} not {response.adjective}"
+        text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
         await asyncio.sleep(sleeptime)
         await sent_message.edit(content = text_to_send)
 
