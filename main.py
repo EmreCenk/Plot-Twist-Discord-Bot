@@ -23,7 +23,7 @@ class MyClient(discord.Client):
             return
 
         # print(f'Message from {message.author}: {message.content}')
-        text_to_send = f"...{response.is_alternative} {response.noun} {response.adjective}?"
+        text_to_send = f"...{response.is_alternative} {response.subject} {response.adjective}?"
         sent_message = await message.reply(text_to_send)
 
         sleeptime = 1.4
@@ -31,7 +31,7 @@ class MyClient(discord.Client):
         await asyncio.sleep(sleeptime)
         await sent_message.edit(content = text_to_send)
 
-        text_to_send += f"\n{response.noun} {response.is_alternative} not {response.adjective}"
+        text_to_send += f"\n{response.subject} {response.is_alternative} not {response.adjective}"
         await asyncio.sleep(sleeptime)
         await sent_message.edit(content = text_to_send)
 

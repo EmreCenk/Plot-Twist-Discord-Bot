@@ -7,15 +7,15 @@ class response:
     def __init__(self,
                  validity: bool,
                  is_alternative: str,
-                 noun: str,
+                 subject: str,
                  adjective: str,
                  ):
         self.validity = validity
-        self.noun = noun
+        self.subject = subject
         self.adjective = adjective
         self.is_alternative = is_alternative
     def __repr__(self):
-        return str((self.validity, self.is_alternative, self.noun, self.adjective))
+        return str((self.validity, self.is_alternative, self.subject, self.adjective))
 class message_checker():
     def __init__(self):
         self.nlp = English()
@@ -93,6 +93,7 @@ class message_checker():
         :return:
         """
         doc = self.nlp((phrase))
+        print("theta", doc)
         if doc[0].lemma_ == "not":
             negated = ""
             doc = doc[1:] #removing 'not'
@@ -106,17 +107,25 @@ if __name__ == '__main__':
              "We are great people!",
              "I am great.",
              "The alphabet is crucial in understanding the world.",
-             "Your mother is not cool", #phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
+             "Your mother is not cool",  #phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
              "Your desk is pretty cool.",
+
+             "The world's great. Marvel is better than DC.",
+             "We're great people!",
+             "I'm great.",
+             "The alphabet's crucial in understanding the world.",
+             "Your mother's not cool",
+             # phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
+             "Your desk's pretty cool.",
              ]
     # print(f'Message from {message.author}: {message.content}')
 
     for e in tests:
         some_response = checker.valid_message(e)
-
-        text_to_send = f"...{some_response.is_alternative} {some_response.noun} {some_response.adjective}?"
+        # some_response.
+        text_to_send = f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
         text_to_send += f"\nThe truth was right in front of you the whole time..."
-        text_to_send += f"\n{some_response.noun} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
+        text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
         text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
         # print(
         print("message:")
