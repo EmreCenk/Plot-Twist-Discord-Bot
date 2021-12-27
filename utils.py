@@ -83,6 +83,15 @@ class message_checker():
         return response(True, "", "", "")
 
     def negate(self, phrase):
+        """
+        Negates any given phrase. For instance:
+        "great" -> "not great"
+        "not great" -> "great"
+        TODO: insert an antonym library here
+
+        :param phrase: phrase
+        :return:
+        """
         doc = self.nlp((phrase))
         if doc[0].lemma_ == "not":
             negated = ""
