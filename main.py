@@ -40,6 +40,8 @@ class MyClient(discord.Client):
         await sent_message.edit(content = text_to_send)
 
 
+
+
 if __name__ == '__main__':
     try:
         from dotenv import load_dotenv

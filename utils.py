@@ -6,9 +6,10 @@ import spacy
 class response:
     def __init__(self,
                  validity: bool,
+                 is_alternative: str,
                  noun: str,
                  adjective: str,
-                 is_alternative: str):
+                 ):
         self.validity = validity
         self.noun = noun
         self.adjective = adjective
@@ -31,7 +32,7 @@ class message_checker():
         :param text: sentence to check validity for
         :return: response
         """
-        # Process whole documents
+
         doc = self.nlp((text))
         last_sentence = self.get_last_sentence(doc = doc)
         print(last_sentence)
@@ -49,13 +50,23 @@ class message_checker():
             return response(False, "", "", "")
 
         adjective = doc[latest_is_index + 1].text
-        for chunk in doc.noun_chunks:
-            if doc[latest_is_index + 1] in chunk:
-                adjective = chunk.text
+        print("alpha", doc[latest_is_index + 1].pos_ in ["ADJ", "PART"], doc[latest_is_index + 1].text, doc[latest_is_index + 1].lemma_)
+        if doc[latest_is_index + 1].lemma_ == "not":
+            adjective = doc[latest_is_index + 1].text + " "
+            for i in range(latest_is_index + 2, len(doc)):
+                if doc[i].pos_ in ["NOUN", "ADJ"]: adjective += doc[i].text + " "
+                else: break
+
+        else:
+            for chunk in doc.noun_chunks:
+                if (doc[latest_is_index + 1] in chunk) or (doc[latest_is_index + 1].pos_ in ["ADJ", "PART"] and doc[latest_is_index + 2] in chunk):
+                    print("dodo", chunk.text)
+                    adjective = chunk.text
+
 
         for chunk in doc.noun_chunks:
             if doc[latest_is_index - 1] in chunk:
-                return response(True, chunk.text, adjective, doc[latest_is_index].text)
+                return response(True, doc[latest_is_index].text, chunk.text, adjective)
 
         # print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
         # print("Verbs:", [token.lemma_ for token in doc if token.pos_ == "VERB"])
@@ -71,16 +82,36 @@ class message_checker():
         # )
         return response(True, "", "", "")
 
+    def negate(self, phrase):
+        doc = self.nlp((phrase))
+        if doc[0].lemma_ == "not":
+            negated = ""
+            doc = doc[1:] #removing 'not'
+        else: negated = "not "
+        for j in doc: negated += j.text + " "
+        return negated
+
 if __name__ == '__main__':
     checker = message_checker()
     tests = ["The world is great. Marvel is better than DC.",
              "We are great people!",
              "I am great.",
-             "The alphabet is crucial in understanding the world."]
+             "The alphabet is crucial in understanding the world.",
+             "Your mother is not cool" #phrases like this were used so much in the servers that I have to add them as a test case.
+
+             ]
+    # print(f'Message from {message.author}: {message.content}')
+
     for e in tests:
+        some_response = checker.valid_message(e)
+
+        text_to_send = f"...{some_response.is_alternative} {some_response.noun} {some_response.adjective}?"
+        text_to_send += f"\nThe truth was right in front of you the whole time..."
+        text_to_send += f"\n{some_response.noun} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
+        text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
         # print(
-        print(checker.valid_message(e))
-        # )
+        print("message:")
+        print(text_to_send)
         print()
         print("-"*100)
         print()
