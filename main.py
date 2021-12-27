@@ -21,7 +21,7 @@ class MyClient(discord.Client):
         some_response = checker.valid_message(message.content)
         if some_response.validity == False: return
 
-        if "@everyone" in message:
+        if "@everyone" in message.content:
             sent_message = await message.reply("Did you think I would @ everyone? I'm not that dumb")
             return
 
