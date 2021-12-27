@@ -21,6 +21,10 @@ class MyClient(discord.Client):
         some_response = checker.valid_message(message.content)
         if some_response.validity == False: return
 
+        if "@everyone" in message:
+            sent_message = await message.reply("Did you think I would @ everyone? I'm not that dumb")
+            return
+
         #replacing apostorphees:
         some_response.subject = some_response.subject.replace("'m", "am").replace("'re", "are").replace("'s", "is")
         some_response.is_alternative = some_response.is_alternative.replace("'m", "am").replace("'re", "are").replace("'s", "is")

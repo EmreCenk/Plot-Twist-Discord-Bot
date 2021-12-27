@@ -53,7 +53,7 @@ class message_checker():
         # if doc[latest_is_index + 1].lemma_ == "not":
         adjective = doc[latest_is_index + 1].text + " "
         for i in range(latest_is_index + 2, len(doc)):
-            if doc[i].pos_ in ["NOUN", "ADJ", "DET"]: adjective += doc[i].text + " "
+            if doc[i].pos_ in ["NOUN", "ADJ", "DET", "VERB"]: adjective += doc[i].text + " "
             else: break
 
         # else:
@@ -126,6 +126,8 @@ if __name__ == '__main__':
              "The alphabet's crucial in understanding the world.",
              "Your mother's not cool", # phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
              "Your desk's pretty cool.",
+
+             "I'm not doing it",
              ]
     # print(f'Message from {message.author}: {message.content}')
 
