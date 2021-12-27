@@ -33,7 +33,7 @@ class message_checker():
         :return: response
         """
         doc = self.nlp((text))
-        last_sentence = self.get_last_sentence(doc = doc)
+        # last_sentence = self.get_last_sentence(doc = doc)
         # print(last_sentence)
 
 
@@ -53,7 +53,7 @@ class message_checker():
         # if doc[latest_is_index + 1].lemma_ == "not":
         adjective = doc[latest_is_index + 1].text + " "
         for i in range(latest_is_index + 2, len(doc)):
-            if doc[i].pos_ in ["NOUN", "ADJ"]: adjective += doc[i].text + " "
+            if doc[i].pos_ in ["NOUN", "ADJ", "DET"]: adjective += doc[i].text + " "
             else: break
 
         # else:
@@ -110,20 +110,21 @@ class message_checker():
 if __name__ == '__main__':
     checker = message_checker()
     tests = [
-            # "The world is great. Marvel is better than DC.",
-            #  "We are great people!",
-            #  "I am great.",
-            #  "The alphabet is crucial in understanding the world.",
-            #  "Your mother is not cool",  #phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
-            #  "Your desk is pretty cool.",
+            "The world is great. Marvel is better than DC.",
+             "We are great people!",
+             "I am great.",
+             "The alphabet is crucial in understanding the world.",
+             "Your mother is not cool",  #phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
+             "Your desk is pretty cool.",
 
+            #SAME TESTS WITH '
+             "I'm not a good guy",
              "The world's great.",
              "Marvel's better than DC.",
              "We're great people!",
              "I'm great.",
              "The alphabet's crucial in understanding the world.",
-             "Your mother's not cool",
-             # phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
+             "Your mother's not cool", # phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
              "Your desk's pretty cool.",
              ]
     # print(f'Message from {message.author}: {message.content}')
