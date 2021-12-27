@@ -32,7 +32,6 @@ class message_checker():
         :param text: sentence to check validity for
         :return: response
         """
-
         doc = self.nlp((text))
         last_sentence = self.get_last_sentence(doc = doc)
         print(last_sentence)
@@ -65,7 +64,9 @@ class message_checker():
         #
 
         for chunk in doc.noun_chunks:
+            print("omicron", chunk)
             if doc[latest_is_index - 1] in chunk:
+                print("returning:", True, doc[latest_is_index].text, chunk.text, adjective)
                 return response(True, doc[latest_is_index].text, chunk.text, adjective)
 
         # print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
@@ -80,7 +81,7 @@ class message_checker():
         # print(
         #
         # )
-        return response(True, "", "", "")
+        return response(False, "", "", "")
 
     def negate(self, phrase):
         """
@@ -94,6 +95,11 @@ class message_checker():
         """
         doc = self.nlp((phrase))
         print("theta", doc)
+        if len(doc) == 0:
+            print("nodoc")
+            negated = "not "
+            for j in doc: negated += j.text + " "
+            return negated
         if doc[0].lemma_ == "not":
             negated = ""
             doc = doc[1:] #removing 'not'
@@ -103,14 +109,16 @@ class message_checker():
 
 if __name__ == '__main__':
     checker = message_checker()
-    tests = ["The world is great. Marvel is better than DC.",
-             "We are great people!",
-             "I am great.",
-             "The alphabet is crucial in understanding the world.",
-             "Your mother is not cool",  #phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
-             "Your desk is pretty cool.",
+    tests = [
+            # "The world is great. Marvel is better than DC.",
+            #  "We are great people!",
+            #  "I am great.",
+            #  "The alphabet is crucial in understanding the world.",
+            #  "Your mother is not cool",  #phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
+            #  "Your desk is pretty cool.",
 
-             "The world's great. Marvel is better than DC.",
+             "The world's great.",
+             "Marvel's better than DC.",
              "We're great people!",
              "I'm great.",
              "The alphabet's crucial in understanding the world.",
@@ -123,12 +131,18 @@ if __name__ == '__main__':
     for e in tests:
         some_response = checker.valid_message(e)
         # some_response.
+        if some_response.validity == False: continue
+        some_response.subject = some_response.subject.replace("'m", "am").replace("'re", "are").replace("'s", "is")
+        some_response.is_alternative = some_response.is_alternative.replace("'m", "am").replace("'re", "are").replace("'s", "is")
+        some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
+
+
         text_to_send = f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
         text_to_send += f"\nThe truth was right in front of you the whole time..."
         text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
         text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
         # print(
-        print("message:")
+        print("\n\nmessage:")
         print(text_to_send)
         print()
         print("-"*100)
