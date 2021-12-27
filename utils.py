@@ -34,7 +34,7 @@ class message_checker():
         """
         doc = self.nlp((text))
         last_sentence = self.get_last_sentence(doc = doc)
-        print(last_sentence)
+        # print(last_sentence)
 
 
 
@@ -44,12 +44,12 @@ class message_checker():
                 latest_is_index = i
         if latest_is_index == None:
             return response(False, "", "", "")
-        print(doc[latest_is_index - 1].pos_, doc[latest_is_index - 1].text)
+        # print(doc[latest_is_index - 1].pos_, doc[latest_is_index - 1].text)
         if doc[latest_is_index - 1].pos_ not in ["NOUN", "PROPN", "PRON"]:
             return response(False, "", "", "")
 
         adjective = doc[latest_is_index + 1].text
-        print("alpha", doc[latest_is_index + 1].pos_ in ["ADJ", "PART"], doc[latest_is_index + 1].text, doc[latest_is_index + 1].lemma_)
+        # print("alpha", doc[latest_is_index + 1].pos_ in ["ADJ", "PART"], doc[latest_is_index + 1].text, doc[latest_is_index + 1].lemma_)
         # if doc[latest_is_index + 1].lemma_ == "not":
         adjective = doc[latest_is_index + 1].text + " "
         for i in range(latest_is_index + 2, len(doc)):
@@ -64,9 +64,9 @@ class message_checker():
         #
 
         for chunk in doc.noun_chunks:
-            print("omicron", chunk)
+            # print("omicron", chunk)
             if doc[latest_is_index - 1] in chunk:
-                print("returning:", True, doc[latest_is_index].text, chunk.text, adjective)
+                # print("returning:", True, doc[latest_is_index].text, chunk.text, adjective)
                 return response(True, doc[latest_is_index].text, chunk.text, adjective)
 
         # print("Noun phrases:", [chunk.text for chunk in doc.noun_chunks])
@@ -94,9 +94,9 @@ class message_checker():
         :return:
         """
         doc = self.nlp((phrase))
-        print("theta", doc)
+        # print("theta", doc)
         if len(doc) == 0:
-            print("nodoc")
+            # print("nodoc")
             negated = "not "
             for j in doc: negated += j.text + " "
             return negated

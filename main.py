@@ -45,7 +45,7 @@ class MyClient(discord.Client):
 
 
 
-
+#heroku maintenance:on
 if __name__ == '__main__':
     try:
         from dotenv import load_dotenv
