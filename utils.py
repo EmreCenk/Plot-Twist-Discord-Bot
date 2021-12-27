@@ -51,18 +51,18 @@ class message_checker():
 
         adjective = doc[latest_is_index + 1].text
         print("alpha", doc[latest_is_index + 1].pos_ in ["ADJ", "PART"], doc[latest_is_index + 1].text, doc[latest_is_index + 1].lemma_)
-        if doc[latest_is_index + 1].lemma_ == "not":
-            adjective = doc[latest_is_index + 1].text + " "
-            for i in range(latest_is_index + 2, len(doc)):
-                if doc[i].pos_ in ["NOUN", "ADJ"]: adjective += doc[i].text + " "
-                else: break
+        # if doc[latest_is_index + 1].lemma_ == "not":
+        adjective = doc[latest_is_index + 1].text + " "
+        for i in range(latest_is_index + 2, len(doc)):
+            if doc[i].pos_ in ["NOUN", "ADJ"]: adjective += doc[i].text + " "
+            else: break
 
-        else:
-            for chunk in doc.noun_chunks:
-                if (doc[latest_is_index + 1] in chunk) or (doc[latest_is_index + 1].pos_ in ["ADJ", "PART"] and doc[latest_is_index + 2] in chunk):
-                    print("dodo", chunk.text)
-                    adjective = chunk.text
-
+        # else:
+        #     for chunk in doc.noun_chunks:
+        #         if (doc[latest_is_index + 1] in chunk) or (doc[latest_is_index + 1].pos_ in ["ADJ", "PART"] and doc[latest_is_index + 2] in chunk):
+        #             print("dodo", chunk.text)
+        #             adjective = chunk.text
+        #
 
         for chunk in doc.noun_chunks:
             if doc[latest_is_index - 1] in chunk:
@@ -106,8 +106,8 @@ if __name__ == '__main__':
              "We are great people!",
              "I am great.",
              "The alphabet is crucial in understanding the world.",
-             "Your mother is not cool" #phrases like this were used so much in the servers that I have to add them as a test case.
-
+             "Your mother is not cool", #phrases like this were used so much in the servers, that I have no choice but to add them as a test case.
+             "Your desk is pretty cool.",
              ]
     # print(f'Message from {message.author}: {message.content}')
 
