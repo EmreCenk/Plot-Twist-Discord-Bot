@@ -14,7 +14,7 @@ class MyClient(discord.Client):
         print('Logged on as {0}!'.format(self.user))
 
     async def on_message(self, message):
-        if message.author == self.user:
+        if message.author.bot:
             return
 
         checker = message_checker()
