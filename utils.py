@@ -53,7 +53,8 @@ class message_checker():
         # if doc[latest_is_index + 1].lemma_ == "not":
         adjective = doc[latest_is_index + 1].text + " "
         for i in range(latest_is_index + 2, len(doc)):
-            if doc[i].pos_ in ["NOUN", "ADJ", "DET", "VERB"]: adjective += doc[i].text + " "
+
+            if doc[i].pos_ in ["NOUN", "ADJ", "DET", "VERB", "ADP", "PROPN"]: adjective += doc[i].text + " "
             else: break
 
         # else:
@@ -83,7 +84,7 @@ class message_checker():
         # )
         return response(False, "", "", "")
 
-    def negate(self, phrase):
+    def negate(self, phrase: str):
         """
         Negates any given phrase. For instance:
         "great" -> "not great"
@@ -128,6 +129,7 @@ if __name__ == '__main__':
              "Your desk's pretty cool.",
 
              "I'm not doing it",
+        "X is in love with Y", # again, this exact phrase was used in servers and the bot glitched out. Therefore, I am forced to use it as a test case.
              ]
     # print(f'Message from {message.author}: {message.content}')
 
