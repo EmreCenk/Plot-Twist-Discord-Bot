@@ -4,7 +4,7 @@
 """
 to add the bot: https://discord.com/api/oauth2/authorize?client_id=922575933515395092&permissions=19520&scope=bot
 """
-
+from random import choice
 import discord
 from utils import message_checker, random_string
 import asyncio
@@ -17,7 +17,21 @@ class MyClient(discord.Client):
     async def on_message(self, message):
         if message.author.bot:
             if message.author.id == bad_bot_id:
-                await message.reply(f"stfu")
+                if "but we all know" in message.content:
+                    mocks = ["lmao", "lol", "wow, what an idiot", "amateur", "what a chump", "got you"]
+                    await message.reply(choice(mocks))
+                    return
+
+
+                to_give = [
+                           "a brain",
+                           "a fire extinguisher so he can burn down the utter garbage that is his source code",
+                           "a car so he can keep up with my speed",
+                           ]
+                msg = f"Watch him break:\n\nI would say <@{bad_bot_id}> is a not a bad bot, but we all know that is not not True (translation: <@{bad_bot_id}> is garbage)" \
+                      f"\n\nNote: plz give <@{bad_bot_id}> {choice(to_give)}"
+                sent_message = await message.reply("watch him break")
+                await sent_message.edit(content = msg)
 
             return
 
