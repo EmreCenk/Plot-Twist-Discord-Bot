@@ -31,7 +31,7 @@ class MyClient(discord.Client):
         some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
 
         # Bypassing the opression of https://github.com/Luke-zhang-04/toB-drocsiD-tsiwT-tolP:
-        text_to_send = f"Bypassing <@926600995042103397>... \n||{random_string(25)}Did you think I would @ everyone?||"
+        text_to_send = f"Did you think I would @ everyone?Bypassing <@926600995042103397>... \n||{random_string(25)}Did you think I would @ everyone?||"
         sent_message = await message.reply(text_to_send)
         # await asyncio.sleep()
 
