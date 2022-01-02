@@ -6,7 +6,7 @@ to add the bot: https://discord.com/api/oauth2/authorize?client_id=9225759335153
 """
 from random import choice
 import discord
-from utils import message_checker, random_string
+from utils import message_checker, get_random_insult
 import asyncio
 bad_bot_id = 926600995042103397
 BYPASS_MESSAGE = f"Did you think I would @ everyoneBypassing <@{bad_bot_id}>...\n\n"
@@ -18,8 +18,10 @@ class MyClient(discord.Client):
         if message.author.bot:
             if message.author.id == bad_bot_id:
                 if "but we all know" in message.content:
-                    mocks = ["lmao", "lol", "wow, what an idiot", "amateur", "what a chump", "got you"]
-                    await message.reply(choice(mocks))
+                    insult = get_random_insult()
+                    if insult[0] in "aeiou": insult = "what a " + insult
+                    else: insult = "what an " + insult
+                    await message.reply()
                     return
 
 

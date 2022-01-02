@@ -5,6 +5,11 @@ import spacy
 
 from random import randint
 from string import ascii_lowercase
+from insults import insults
+
+def get_random_insult():
+    return insults[randint(0, len(insults) - 1)]
+
 def random_string(length: int):
     string = ""
     for i in range(length): string += ascii_lowercase[randint(0, len(ascii_lowercase) - 1)]
@@ -139,23 +144,26 @@ if __name__ == '__main__':
         "X is in love with Y", # again, this exact phrase was used in servers and the bot glitched out. Therefore, I am forced to use it as a test case.
              ]
     # print(f'Message from {message.author}: {message.content}')
-
-    for e in tests:
-        some_response = checker.valid_message(e)
-        # some_response.
-        if some_response.validity == False: continue
-        some_response.subject = some_response.subject.replace("'m", "am").replace("'re", "are").replace("'s", "is")
-        some_response.is_alternative = some_response.is_alternative.replace("'m", "am").replace("'re", "are").replace("'s", "is")
-        some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
-
-
-        text_to_send = f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
-        text_to_send += f"\nThe truth was right in front of you the whole time..."
-        text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
-        text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
-        # print(
-        print("\n\nmessage:")
-        print(text_to_send)
-        print()
-        print("-"*100)
-        print()
+    print(get_random_insult())
+    print(get_random_insult())
+    print(get_random_insult())
+    print(get_random_insult())
+    # for e in tests:
+    #     some_response = checker.valid_message(e)
+    #     # some_response.
+    #     if some_response.validity == False: continue
+    #     some_response.subject = some_response.subject.replace("'m", "am").replace("'re", "are").replace("'s", "is")
+    #     some_response.is_alternative = some_response.is_alternative.replace("'m", "am").replace("'re", "are").replace("'s", "is")
+    #     some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
+    #
+    #
+    #     text_to_send = f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
+    #     text_to_send += f"\nThe truth was right in front of you the whole time..."
+    #     text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
+    #     text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
+    #     # print(
+    #     print("\n\nmessage:")
+    #     print(text_to_send)
+    #     print()
+    #     print("-"*100)
+    #     print()
