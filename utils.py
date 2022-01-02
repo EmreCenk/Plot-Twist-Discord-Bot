@@ -3,6 +3,13 @@ from typing import Tuple
 from spacy.lang.en import English
 import spacy
 
+from random import randint
+from string import ascii_lowercase
+def random_string(length: int):
+    string = ""
+    for i in range(length): string += ascii_lowercase[randint(0, len(ascii_lowercase) - 1)]
+    return string
+
 class response:
     def __init__(self,
                  validity: bool,

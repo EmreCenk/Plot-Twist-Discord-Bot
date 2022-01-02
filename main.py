@@ -6,7 +6,7 @@ to add the bot: https://discord.com/api/oauth2/authorize?client_id=9225759335153
 """
 
 import discord
-from utils import message_checker
+from utils import message_checker, random_string
 import asyncio
 
 class MyClient(discord.Client):
@@ -31,7 +31,7 @@ class MyClient(discord.Client):
         some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
 
         # Bypassing the opression of https://github.com/Luke-zhang-04/toB-drocsiD-tsiwT-tolP:
-        text_to_send = "Bypassing <@926600995042103397>... \n||Did you think I would @ everyone?||"
+        text_to_send = f"Bypassing <@926600995042103397>... \n||{random_string(25)}Did you think I would @ everyone?||"
         sent_message = await message.reply(text_to_send)
         # await asyncio.sleep()
 
