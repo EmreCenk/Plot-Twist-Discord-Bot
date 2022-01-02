@@ -16,6 +16,9 @@ class MyClient(discord.Client):
 
     async def on_message(self, message):
         if message.author.bot:
+            if message.author.id == bad_bot_id:
+                await message.reply(f"stfu")
+
             return
 
         checker = message_checker()
