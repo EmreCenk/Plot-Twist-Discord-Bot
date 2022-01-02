@@ -30,9 +30,14 @@ class MyClient(discord.Client):
         some_response.is_alternative = some_response.is_alternative.replace("'m", "am").replace("'re", "are").replace("'s", "is")
         some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
 
-        # print(f'Message from {message.author}: {message.content}')
-        text_to_send = f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
+        # Bypassing the opression of https://github.com/Luke-zhang-04/toB-drocsiD-tsiwT-tolP:
+        text_to_send = "Bypassing <@926600995042103397>... \n||Did you think I would @ everyone?||"
         sent_message = await message.reply(text_to_send)
+        # await asyncio.sleep()
+
+
+        text_to_send = f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
+        # sent_message = await message.reply(text_to_send)
 
         sleeptime = 1.4
         text_to_send += f"\nThe truth was right in front of you the whole time..."
