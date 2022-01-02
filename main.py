@@ -8,12 +8,15 @@ to add the bot: https://discord.com/api/oauth2/authorize?client_id=9225759335153
 import discord
 from utils import message_checker, random_string
 import asyncio
-
+bad_bot_id = "926600995042103397"
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as {0}!'.format(self.user))
 
     async def on_message(self, message):
+        if message.author.id == bad_bot_id:
+            await message.reply("lmao look at this idiot fail")
+            return
         if message.author.bot:
             return
 
@@ -31,7 +34,7 @@ class MyClient(discord.Client):
         some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
 
         # Bypassing the opression of https://github.com/Luke-zhang-04/toB-drocsiD-tsiwT-tolP:
-        text_to_send = f"Did you think I would @ everyone?Bypassing <@926600995042103397>... \n||{random_string(25)}Did you think I would @ everyone?||"
+        text_to_send = f"Did you think I would @ everyone?Bypassing <@{bad_bot_id}>... \n||Did you think I would @ everyone?||"
         sent_message = await message.reply(text_to_send)
         # await asyncio.sleep()
 
@@ -44,13 +47,17 @@ class MyClient(discord.Client):
         await asyncio.sleep(sleeptime)
         await sent_message.edit(content = text_to_send)
 
-        text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
-        await asyncio.sleep(sleeptime)
-        await sent_message.edit(content = text_to_send)
+        try:
+            text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
+            await asyncio.sleep(sleeptime)
+            await sent_message.edit(content = text_to_send)
+        except: pass #message was removed by Worst Bot
 
-        text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
-        await asyncio.sleep(sleeptime)
-        await sent_message.edit(content = text_to_send)
+        try:
+            text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
+            await asyncio.sleep(sleeptime)
+            await sent_message.edit(content = text_to_send)
+        except: pass #message was removed by worst bot
 
 
 
