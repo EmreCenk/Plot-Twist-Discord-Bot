@@ -15,10 +15,6 @@ class MyClient(discord.Client):
         print('Logged on as {0}!'.format(self.user))
 
     async def on_message(self, message):
-        print(message.author.id, type(message.author.id))
-        # if message.author.id == bad_bot_id:
-        #     await message.reply(BYPASS_MESSAGE + "\n\n\nlmao look at this idiot fail")
-        #     return
         if message.author.bot:
             return
 
@@ -35,35 +31,22 @@ class MyClient(discord.Client):
         some_response.is_alternative = some_response.is_alternative.replace("'m", "am").replace("'re", "are").replace("'s", "is")
         some_response.adjective = some_response.adjective.replace("'m", "am").replace("'re", "are").replace("'s", "is")
 
-        # Bypassing the opression of https://github.com/Luke-zhang-04/toB-drocsiD-tsiwT-tolP:
-        text_to_send = BYPASS_MESSAGE
-        # sent_message = await message.reply(text_to_send)
-        # await asyncio.sleep()
-
-
-        text_to_send += f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
-        # sent_message = await message.reply(text_to_send)
+        # print(f'Message from {message.author}: {message.content}')
+        text_to_send = f"...{some_response.is_alternative} {some_response.subject} {some_response.adjective}?"
+        sent_message = await message.reply(text_to_send)
 
         sleeptime = 1.4
         text_to_send += f"\nThe truth was right in front of you the whole time..."
-        text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
-        text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
-        sent_message = await message.reply(text_to_send)
+        await asyncio.sleep(sleeptime)
+        await sent_message.edit(content = text_to_send)
 
-        # await asyncio.sleep(sleeptime)
-        # await sent_message.edit(content = text_to_send)
-        #
-        # try:
-        #     text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
-        #     await asyncio.sleep(sleeptime)
-        #     await sent_message.edit(content = text_to_send)
-        # except: pass #message was removed by Worst Bot
-        #
-        # try:
-        #     text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
-        #     await asyncio.sleep(sleeptime)
-        #     await sent_message.edit(content = text_to_send)
-        # except: pass #message was removed by worst bot
+        text_to_send += f"\n{some_response.subject} {some_response.is_alternative} {checker.negate(some_response.adjective)}"
+        await asyncio.sleep(sleeptime)
+        await sent_message.edit(content = text_to_send)
+
+        text_to_send += "\nNote: plz give <@569431484486909964> some ideas for this not to suck"
+        await asyncio.sleep(sleeptime)
+        await sent_message.edit(content = text_to_send)
 
 
 
