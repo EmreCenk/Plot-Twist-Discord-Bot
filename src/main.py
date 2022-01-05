@@ -20,8 +20,8 @@ class MyClient(discord.Client):
                 if "but we all know" in message.content:
                     insult = get_random_insult()
                     # print("insult:", insult)
-                    if insult[0] in "aeiou": insult = "what a " + insult
-                    else: insult = "what an " + insult
+                    if insult[0] in "aeiou": insult = "what an " + insult
+                    else: insult = "what a " + insult
                     await message.reply(insult)
                     return
 
