@@ -9,34 +9,34 @@ import discord
 from utils import message_checker, get_random_insult
 import asyncio
 bad_bot_id = 926600995042103397
-BYPASS_MESSAGE = f"Did you think I would @ everyoneBypassing <@{bad_bot_id}>...\n\n"
+# BYPASS_MESSAGE = f"Did you think I would @ everyoneBypassing <@{bad_bot_id}>...\n\n"
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as {0}!'.format(self.user))
 
     async def on_message(self, message):
-        if message.author.bot:
-            if message.author.id == bad_bot_id:
-                if "but we all know" in message.content:
-                    insult = get_random_insult()
-                    # print("insult:", insult)
-                    if insult[0] in "aeiou": insult = "what an " + insult
-                    else: insult = "what a " + insult
-                    await message.reply(insult)
-                    return
-
-
-                to_give = [
-                           "a brain",
-                           "a fire extinguisher so he can burn down the utter garbage that is his source code",
-                           "a car so he can keep up with my speed",
-                           ]
-                msg = f"Watch him break:\n\nI would say <@{bad_bot_id}> is a not a bad bot, but we all know that is not not True (translation: <@{bad_bot_id}> is garbage)" \
-                      f"\n\nNote: plz give <@{bad_bot_id}> {choice(to_give)}"
-                sent_message = await message.reply("watch him break")
-                await sent_message.edit(content = msg)
-
-            return
+        # if message.author.bot:
+        #     if message.author.id == bad_bot_id:
+        #         if "but we all know" in message.content:
+        #             insult = get_random_insult()
+        #             # print("insult:", insult)
+        #             if insult[0] in "aeiou": insult = "what an " + insult
+        #             else: insult = "what a " + insult
+        #             await message.reply(insult)
+        #             return
+        #
+        #
+        #         to_give = [
+        #                    "a brain",
+        #                    "a fire extinguisher so he can burn down the utter garbage that is his source code",
+        #                    "a car so he can keep up with my speed",
+        #                    ]
+        #         msg = f"Watch him break:\n\nI would say <@{bad_bot_id}> is a not a bad bot, but we all know that is not not True (translation: <@{bad_bot_id}> is garbage)" \
+        #               f"\n\nNote: plz give <@{bad_bot_id}> {choice(to_give)}"
+        #         sent_message = await message.reply("watch him break")
+        #         await sent_message.edit(content = msg)
+        #
+        #     return
 
         checker = message_checker()
         some_response = checker.valid_message(message.content)
