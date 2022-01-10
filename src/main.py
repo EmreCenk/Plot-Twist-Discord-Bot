@@ -15,6 +15,8 @@ class MyClient(discord.Client):
         print('Logged on as {0}!'.format(self.user))
 
     async def on_message(self, message):
+        if message.author.bot: return #ignoring all bots
+
         # if message.author.bot:
         #     if message.author.id == bad_bot_id:
         #         if "but we all know" in message.content:
